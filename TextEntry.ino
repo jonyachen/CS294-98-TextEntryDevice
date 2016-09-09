@@ -19,6 +19,8 @@ int lastEnterState = HIGH;
 int rowCount = 0;
 int colCount = 0;
 
+char letter;
+
 // Times for debouncing
 long lastDebounceRowTime = 0;   //last time the row button was pressed
 long lastDebounceColTime = 0;   //last time the col button was pressed
@@ -101,8 +103,117 @@ void loop() {
 
       // if enter button is pressed
       if (enterState == LOW) {
-        Serial.println(rowCount); //print count of row button pressed
-        Serial.println(colCount); //print count of col button pressed
+        //Serial.println(rowCount); //print count of row button pressed
+        //Serial.println(colCount); //print count of col button pressed
+
+        //determine letter
+        switch (rowCount) {
+          case 1: //row = 1
+            if (colCount == 1) {
+              letter = 'A';
+            }
+            else if (colCount == 2) {
+              letter = 'B';
+            }
+            else if (colCount == 3) {
+              letter = 'C';
+            }
+            else if (colCount == 4) {
+              letter = 'D';
+            }
+            else if (colCount == 5) {
+              letter = 'E';
+            }
+            else {
+              letter = '#';
+            }
+            break;
+          case 2: //row = 2
+            if (colCount == 1) {
+              letter = 'F';
+            }
+            else if (colCount == 2) {
+              letter = 'G';
+            }
+            else if (colCount == 3) {
+              letter = 'H';
+            }
+            else if (colCount == 4) {
+              letter = 'I';
+            }
+            else if (colCount == 5) {
+              letter = 'J';
+            }
+            else {
+              letter = '#';
+            }
+            break;
+          case 3: //row = 3
+            if (colCount == 1) {
+              letter = 'L';
+            }
+            else if (colCount == 2) {
+              letter = 'M';
+            }
+            else if (colCount == 3) {
+              letter = 'N';
+            }
+            else if (colCount == 4) {
+              letter = 'O';
+            }
+            else if (colCount == 5) {
+              letter = 'P';
+            }
+            else {
+              letter = '#';
+            }
+            break;
+          case 4: //row = 4
+            if (colCount == 1) {
+              letter = 'Q';
+            }
+            else if (colCount == 2) {
+              letter = 'R';
+            }
+            else if (colCount == 3) {
+              letter = 'S';
+            }
+            else if (colCount == 4) {
+              letter = 'T';
+            }
+            else if (colCount == 5) {
+              letter = 'U';
+            }
+            else {
+              letter = '#';
+            }
+            break;
+          case 5: //row = 5
+            if (colCount == 1) {
+              letter = 'V';
+            }
+            else if (colCount == 2) {
+              letter = 'W';
+            }
+            else if (colCount == 3) {
+              letter = 'X';
+            }
+            else if (colCount == 4) {
+              letter = 'Y';
+            }
+            else if (colCount == 5) {
+              letter = 'Z';
+            }
+            else {
+              letter = '#';
+            }
+            break;
+          default: 
+            letter = '#';
+          break;
+        }
+
+        Serial.print(letter); //print designated letter when button pressed        
       }
     }
   }
