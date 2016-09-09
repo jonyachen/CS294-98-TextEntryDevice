@@ -51,7 +51,7 @@ void loop() {
       // only toggle the LED if the new button state is LOW
       if (buttonState == LOW) {
         ledState = !ledState; //toggle LED
-        Serial.print("pressed");
+        Serial.println("pressed");
       }
     }
   }
