@@ -213,7 +213,9 @@ void loop() {
           break;
         }
 
-        Serial.print(letter); //print designated letter when button pressed        
+        Serial.print(letter); //print designated letter when button pressed  
+        colCount = 0;
+        rowCount = 0;      
       }
     }
   }
