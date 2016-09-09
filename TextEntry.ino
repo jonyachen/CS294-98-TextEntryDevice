@@ -5,7 +5,8 @@ SYSTEM_MODE(MANUAL);
 //set pin numbers (constants)
 const int rowPin = D0;   //input pin for row pushbutton
 const int colPin = D1;   //input pin for column pushbutton
-const int enterPin = D2;    //input pinn for enter button
+const int enterPin = D2; //input pin for enter button
+const int spacePin = D3; //input pin for space button
 
 // Variables
 int rowState;            //the current reading from the row input pin
@@ -14,17 +15,21 @@ int colState;            //the current reading from the  row input pin
 int lastColState = HIGH; //the previous reading from the  col input pin
 int enterState;
 int lastEnterState = HIGH;
+int spaceState;
+int lastSpaceState = HIGH;
 
 // Count of button presses
 int rowCount = 0;
 int colCount = 0;
 
+//to print
 char letter;
 
 // Times for debouncing
 long lastDebounceRowTime = 0;   //last time the row button was pressed
 long lastDebounceColTime = 0;   //last time the col button was pressed
 long lastDebounceEnterTime = 0; //last time the enter button was pressed
+long lastDebounceSpaceTime = 0; //last time the enter button was pressed
 
 long debounceDelay = 50;        //debounce time - increase if the press reading flickers
 
@@ -33,6 +38,7 @@ void setup() {
   pinMode(rowPin, INPUT_PULLUP);
   pinMode(colPin, INPUT_PULLUP);
   pinMode(enterPin, INPUT_PULLUP);
+  pinMode(spacePin, INPUT_PULLUP);
 
   //sets up serial terminal
   Serial.begin(9600);
@@ -43,6 +49,7 @@ void loop() {
   int rowReading = digitalRead(rowPin);     //reads the state of the row button
   int colReading = digitalRead(colPin);     //reads the state of the col button
   int enterReading = digitalRead(enterPin); //reads the state of the enter button
+  int spaceReading = digitalRead(spacePin); //reads the state of the space button
 
   //debouncing = check to see if you just pressed the button
   // (ie the input went from HIGH to LOW),  and you've waited
@@ -59,6 +66,10 @@ void loop() {
   
   if (enterReading != lastEnterState) {
     lastDebounceEnterTime = millis();  //reset the debouncing timer for enter button
+  }
+
+  if (spaceReading != lastSpaceState) {
+    lastDebounceSpaceTime = millis();  //reset the debouncing timer for space button
   }
 
   //debounce loop for row button
@@ -90,6 +101,22 @@ void loop() {
       // if new button state is LOW, increment the count for col button presses
       if (colState == LOW) {
         colCount++;
+      }
+    }
+  }
+
+  //debounce loop for space button
+  if ((millis() - lastDebounceSpaceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer
+    // than the debounce delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (spaceReading != spaceState) {
+      spaceState = spaceReading;
+
+      // if new button state is LOW, increment the count for space button presses
+      if (spaceState == LOW) {
+        Serial.print(" "); //prints a space character
       }
     }
   }
@@ -225,4 +252,5 @@ void loop() {
   lastRowState = rowReading;
   lastColState = colReading;
   lastEnterState = enterReading;
+  lastSpaceState = spaceReading;
 }
