@@ -1,3 +1,8 @@
+//CS294-98 IDD
+//Homework 2: Text Entry Device
+//Jonya Chen
+//September 8, 2016
+
 #if defined(ARDUINO)
 SYSTEM_MODE(MANUAL);
 #endif
@@ -22,7 +27,7 @@ int lastSpaceState = HIGH;
 int rowCount = 0;
 int colCount = 0;
 
-//to print
+//character to print
 char letter;
 
 // Times for debouncing
@@ -247,8 +252,7 @@ void loop() {
     }
   }
 
-  // save the reading.  Next time through the loop,
-  // it'll be the lastButtonState:
+  // save the reading.  Next time through the loop, it'll be the last state of the button:
   lastRowState = rowReading;
   lastColState = colReading;
   lastEnterState = enterReading;
